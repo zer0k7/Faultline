@@ -1,0 +1,8 @@
+2026-01-08 08:12:41 login ok user=admin password=admin123 ip=127.0.0.1
+2026-01-08 08:15:02 login fail user=student2 password=summer2025 ip=127.0.0.1
+2026-01-08 08:17:19 login ok user=student1 password=student123 ip=127.0.0.1
+2026-01-08 09:02:55 admin action=delete_user target=14 actor=admin
+2026-01-08 09:04:11 mail relay key=demo-relay-key-4412
+2026-01-08 09:20:33 backup finished file=backup/db_dump.sql
+2026-01-08 09:31:07 vault marker FLT{log_webroot_5c9e}
+2026-01-08 10:02:48 login fail user=admin password=letmein ip=127.0.0.1

@@ -1,0 +1,54 @@
+name: faultline
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: faultline
+      DB_PASS: ${MYSQL_PASSWORD:-faultline}
+      DB_NAME: faultline
+      FLAG_DIR: /flag
+      BASE_URL: ""
+    depends_on:
+      db:
+        condition: service_healthy
+      internal:
+        condition: service_started
+    volumes:
+      - uploads_data:/var/www/html/uploads
+      - themes_data:/var/www/html/themes
+    restart: unless-stopped
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    environment:
+      MYSQL_DATABASE: faultline
+      MYSQL_USER: faultline
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-faultline}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-faultline_root}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  internal:
+    build:
+      context: .
+      dockerfile: docker/internal/Dockerfile
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads_data:
+  themes_data:

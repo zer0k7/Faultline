@@ -1,0 +1,13 @@
+[database]
+host=localhost
+username=root
+password=faultline_root
+database=faultline
+
+[mail]
+smtp_server=smtp.faultline.test
+smtp_user=helpdesk@faultline.test
+smtp_pass=demo-smtp-password
+
+[lab]
+lab_flag=FLT{exposed_env_9a4c}
