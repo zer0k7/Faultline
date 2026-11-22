@@ -1,58 +1,137 @@
 <?php
-include('config.php');
+require_once __DIR__ . '/config.php';
 session_start();
+
+$user = $_SESSION['user'] ?? 'Guest';
+$userId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
+$enrollments = false;
+$messages = false;
+$balance = 0;
+$courseTotal = 0;
+
+if ($conn && $userId > 0) {
+    $enrollments = mysqli_query($conn, "SELECT c.*, e.status FROM enrollments e JOIN courses c ON c.id = e.course_id WHERE e.user_id = $userId ORDER BY c.code");
+    $messages = mysqli_query($conn, "SELECT m.*, u.full_name AS sender FROM messages m JOIN users u ON u.id = m.sender_id WHERE m.recipient_id = $userId ORDER BY m.id DESC LIMIT 3");
+    $account = mysqli_query($conn, "SELECT balance FROM users WHERE id = $userId");
+    if ($account) {
+        $row = mysqli_fetch_assoc($account);
+        $balance = $row ? (float) $row['balance'] : 0;
+    }
+    if ($enrollments) {
+        $courseTotal = mysqli_num_rows($enrollments);
+    }
+}
+
+$pageTitle = 'Dashboard';
+$activeNav = 'dashboard';
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Dashboard - Faultline University</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { font-family: Arial, sans-serif; background: #f3f6fb; }
-        .container {
-            max-width: 730px; margin: 40px auto; background: #fff;
-            border-radius: 12px; padding: 30px 28px; box-shadow: 0 2px 18px rgba(0,0,0,0.12);
-        }
-        h2 {
-            color: #0c3b6c; font-weight: 700; margin-bottom: 16px;
-        }
-        .welcome {
-            font-size: 1.45em; margin-bottom: 12px; color: #23598c;
-        }
-        .links a {
-            margin-right: 24px; color: #467ee8; font-weight: 600;
-            text-decoration: none; font-size: 1.1em;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
-        .stats {
-            margin-top: 24px; font-size: 1.1em;
-            color: #2a2f36;
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Dashboard</h2>
-    <div class="welcome">
-        Welcome, <?php echo isset($_SESSION['user']) ? $_SESSION['user'] : 'Guest'; ?>!
+<div class="page-header">
+    <span class="eyebrow">Student home</span>
+    <h1>Welcome, <?= $user ?></h1>
+    <p class="lede">Your courses, messages and account balance for the current term.</p>
+</div>
+
+<?php if (!empty($_SESSION['failopen'])): ?>
+    <div class="alert alert-error">
+        <strong>Offline mode active.</strong> The directory could not be reached, so the portal continued with an emergency session.
+        <div class="mono mt-16"><?= flag_value('failopen.txt') ?></div>
     </div>
-    <div class="links">
-        <a href="profile.php">Profile</a>
-        <a href="courses.php">Courses</a>
-        <a href="faculty.php">Faculty</a>
-        <a href="news.php">News</a>
-        <a href="feedback.php">Feedback</a>
-        <a href="upload.php">Upload Profile Pic</a>
-        <a href="logout.php">Logout</a>
+<?php endif; ?>
+
+<div class="grid grid-3 section">
+    <div class="stat"><span>Active courses</span><strong><?= $courseTotal ?></strong></div>
+    <div class="stat"><span>Account balance</span><strong><?= number_format($balance, 2) ?></strong></div>
+    <div class="stat"><span>Messages</span><strong><?= $messages ? mysqli_num_rows($messages) : 0 ?></strong></div>
+</div>
+
+<div class="split">
+    <div class="stack">
+        <div class="card">
+            <div class="card-head">
+                <h2>Current enrollment</h2>
+                <a class="small" href="<?= url('courses.php') ?>">Add a course</a>
+            </div>
+            <div class="card-body">
+                <?php if ($enrollments && mysqli_num_rows($enrollments) > 0): ?>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr><th>Code</th><th>Course</th><th>Credits</th><th>Status</th></tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($course = mysqli_fetch_assoc($enrollments)): ?>
+                                    <tr>
+                                        <td data-label="Code"><?= $course['code'] ?></td>
+                                        <td data-label="Course"><?= $course['title'] ?></td>
+                                        <td data-label="Credits"><?= $course['credits'] ?></td>
+                                        <td data-label="Status"><span class="badge badge-accent"><?= $course['status'] ?></span></td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="empty">
+                        <strong>No active enrollment</strong>
+                        <span>Browse the course catalog to join a class.</span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <h2>Recent messages</h2>
+            </div>
+            <div class="card-body">
+                <?php if ($messages && mysqli_num_rows($messages) > 0): ?>
+                    <div class="stack">
+                        <?php while ($message = mysqli_fetch_assoc($messages)): ?>
+                            <div>
+                                <div class="small muted"><?= $message['sender'] ?> · <?= $message['created_at'] ?></div>
+                                <strong><?= $message['subject'] ?></strong>
+                                <p class="small"><?= $message['body'] ?></p>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="empty">
+                        <strong>Inbox is clear</strong>
+                        <span>New messages from faculty will appear here.</span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
-    <div class="stats">
-        <p>You are currently enrolled in <b>5</b> courses.</p>
-        <p>Last login: <?php echo date('Y-m-d H:i:s'); ?></p>
-    </div>
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-body">
+                <h3>Quick links</h3>
+                <div class="footer-links">
+                    <a href="<?= url('profile.php') ?>">My profile</a>
+                    <a href="<?= url('courses.php') ?>">Course catalog</a>
+                    <a href="<?= url('faculty.php') ?>">Faculty directory</a>
+                    <a href="<?= url('feedback.php') ?>">Course feedback</a>
+                    <a href="<?= url('upload.php') ?>">Profile photo</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3>Fees</h3>
+                <p class="small muted">The finance office posts charges at the start of each month.</p>
+                <a class="btn btn-secondary btn-sm" href="<?= url('fees.php') ?>">Open fee account</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3>Session</h3>
+                <p class="small muted">Signed in as <?= $user ?>.</p>
+                <a class="btn btn-secondary btn-sm" href="<?= url('logout.php') ?>">Log out</a>
+            </div>
+        </div>
+    </aside>
 </div>
-</body>
-</html>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

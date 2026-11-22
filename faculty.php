@@ -1,101 +1,67 @@
 <?php
-include('config.php');
+$pageTitle = 'Faculty';
+$activeNav = 'faculty';
+require_once __DIR__ . '/includes/header.php';
+
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$facultyList = false;
+
+if ($conn) {
+    $sql = 'SELECT * FROM faculty';
+    if ($search !== '') {
+        $sql .= " WHERE name LIKE '%$search%' OR department LIKE '%$search%'";
+    }
+    $sql .= ' ORDER BY name';
+    $facultyList = mysqli_query($conn, $sql);
+}
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Faculty Directory - Faultline University</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { font-family: Arial, sans-serif; background: #f3f6fb; }
-        .container {
-            max-width: 720px; margin: 40px auto; background: #fff;
-            border-radius: 12px; padding: 28px 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #0c3b6c; font-weight: 700; margin-bottom: 20px;
-        }
-        form input[type=text] {
-            width: 60%; padding: 9px 14px; font-size: 1.05em; border-radius: 6px; border: 1.8px solid #0c3b6caa;
-            outline: none; transition: border-color 0.3s ease;
-        }
-        form input[type=text]:focus {
-            border-color: #467ee8;
-        }
-        form button {
-            padding: 10px 22px; background: #0c3b6c; border: none;
-            border-radius: 6px; color: white; font-weight: 600;
-            font-size: 1em; cursor: pointer;
-            margin-left: 8px; transition: background 0.3s ease;
-        }
-        form button:hover {
-            background: #3461a8;
-        }
-        table {
-            width: 100%; border-collapse: collapse; margin-top: 20px;
-        }
-        th, td {
-            padding: 12px 14px; border: 1.5px solid #0c3b6c50; text-align: left; font-size: 1em;
-        }
-        th {
-            background: #0c3b6c; color: white;
-        }
-        tr:nth-child(even) {
-            background: #f8faff;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Faculty Directory</h2>
-    <form method="get" action="">
-        <input type="text" name="search" placeholder="Search faculty by name..." value="<?php if(isset($_GET['search'])) echo $_GET['search']; ?>" />
-        <button type="submit">Search</button>
-    </form>
-
-    <?php
-    // Vulnerable reflected XSS via search parameter
-    $query = "SELECT * FROM faculty";
-    if(isset($_GET['search']) && $_GET['search'] !== '') {
-        // UNSAFE direct string interpolation (vulnerable to SQLi)
-        $search = $_GET['search'];
-        $query .= " WHERE name LIKE '%$search%'";
-        echo "<p>Searching for: " . $_GET['search'] . "</p>"; // Reflected XSS here
-    }
-
-    // Sample data (since no DB table faculty exists, using hardcoded array for demo)
-    $facultyList = [
-        ['id'=>1, 'name'=>'Dr. Alice Johnson', 'department'=>'Computer Science'],
-        ['id'=>2, 'name'=>'Prof. Bob Williams', 'department'=>'Mathematics'],
-        ['id'=>3, 'name'=>'Dr. Clara Smith', 'department'=>'Physics'],
-        ['id'=>4, 'name'=>'Prof. David Lee', 'department'=>'Chemistry'],
-        ['id'=>5, 'name'=>'Dr. Evelyn Clark', 'department'=>'Biology']
-    ];
-
-    // Filter faculty based on search (naive demo filtering)
-    if(isset($_GET['search']) && $_GET['search'] !== '') {
-        $filter = strtolower($_GET['search']);
-        $filtered = [];
-        foreach($facultyList as $fac) {
-            if(strpos(strtolower($fac['name']), $filter) !== false) $filtered[] = $fac;
-        }
-    } else {
-        $filtered = $facultyList;
-    }
-    ?>
-
-    <table>
-        <thead>
-            <tr><th>ID</th><th>Name</th><th>Department</th></tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach($filtered as $faculty) {
-            echo "<tr><td>{$faculty['id']}</td><td>{$faculty['name']}</td><td>{$faculty['department']}</td></tr>";
-        }
-        ?>
-        </tbody>
-    </table>
+<div class="page-header">
+    <span class="eyebrow">Directory</span>
+    <h1>Faculty and teaching staff</h1>
+    <p class="lede">Find a teacher by name or department. Office hours are listed on each profile.</p>
 </div>
-</body>
-</html>
+
+<div class="card section">
+    <div class="card-body">
+        <form class="search-form" method="get" action="">
+            <label class="sr-only" for="search">Search faculty</label>
+            <input id="search" name="search" type="search" placeholder="Search by name or department" value="<?= $search ?>">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <?php if ($search !== ''): ?>
+                <a class="btn btn-secondary" href="<?= url('faculty.php') ?>">Clear</a>
+            <?php endif; ?>
+        </form>
+        <?php if ($search !== ''): ?>
+            <p class="small muted mt-16">Searching for: <strong><?= $search ?></strong></p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php if ($facultyList && mysqli_num_rows($facultyList) > 0): ?>
+    <div class="grid grid-2">
+        <?php while ($person = mysqli_fetch_assoc($facultyList)): ?>
+            <article class="card">
+                <div class="card-body">
+                    <div class="faculty-card">
+                        <span class="avatar"><?= strtoupper(substr($person['name'], 0, 1)) ?></span>
+                        <div>
+                            <h2><?= $person['name'] ?></h2>
+                            <p class="small muted"><?= $person['department'] ?> · <?= $person['office'] ?></p>
+                            <p class="small"><?= $person['bio'] ?></p>
+                            <div class="pill-row">
+                                <span class="badge"><?= $person['email'] ?></span>
+                                <span class="badge"><?= $person['phone'] ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        <?php endwhile; ?>
+    </div>
+<?php else: ?>
+    <div class="empty">
+        <strong>No faculty matched</strong>
+        <span>Try a different name or department.</span>
+    </div>
+<?php endif; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

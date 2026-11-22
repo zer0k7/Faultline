@@ -1,75 +1,119 @@
 <?php
-include('config.php');
+require_once __DIR__ . '/config.php';
 session_start();
 
-// For demo: no authentication enforcement (vulnerable)
-$username = isset($_SESSION['user']) ? $_SESSION['user'] : 'Guest';
+$id = isset($_GET['id']) ? (int) $_GET['id'] : (int) ($_SESSION['user_id'] ?? 0);
+$profile = null;
+$message = '';
 
-// For demo: no DB update or user info storage, only simulate "profile"
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = isset($_POST['id']) ? (int) $_POST['id'] : $id;
+    if ($conn && $id > 0) {
+        $sql = "UPDATE users SET full_name='$_POST[full_name]', email='$_POST[email]', phone='$_POST[phone]', address='$_POST[address]', bio='$_POST[bio]', role='$_POST[role]', balance='$_POST[balance]' WHERE id=$id";
+        if (mysqli_query($conn, $sql)) {
+            $message = 'Profile saved.';
+        } else {
+            $message = 'Profile could not be saved.';
+        }
+    }
+}
+
+if ($conn && $id > 0) {
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE id=$id");
+    if ($result) {
+        $profile = mysqli_fetch_assoc($result);
+    }
+}
+
+$pageTitle = 'Profile';
+$activeNav = 'profile';
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profile - Faultline University Portal</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { background: #f3f6fb; font-family: Arial, sans-serif; }
-        .container {
-            max-width: 500px; margin: 40px auto; padding: 30px 30px;
-            background: #fff; border-radius: 14px; box-shadow: 0 2px 24px rgba(0,0,0,0.12);
-        }
-        h2 {
-            color: #0c3b6c; font-weight: 700; margin-bottom: 24px; text-align: center;
-        }
-        .profile-info {
-            font-size: 1.05em; color: #23598c;
-            margin-bottom: 22px;
-        }
-        label {
-            font-weight: 600; display: block; margin-top: 16px;
-            color: #23598c;
-        }
-        input[type=text], input[type=email] {
-            width: 100%; padding: 9px 12px; border-radius: 7px;
-            border: 1.8px solid #0c3b6caa; font-size: 1em; margin-top: 6px;
-            box-sizing: border-box; transition: border-color 0.3s ease;
-            font-family: Arial, sans-serif;
-        }
-        input[type=text]:focus, input[type=email]:focus {
-            border-color: #467ee8; outline: none;
-        }
-        button {
-            margin-top: 28px; background: #0c3b6c; color: white;
-            font-weight: 700; font-size: 1.1em; border: none;
-            padding: 12px 0; width: 100%;
-            border-radius: 7px; cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #3461a8;
-        }
-        .note {
-            font-size: 0.9em; color: #666; text-align: center; margin-top: 14px;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Your Profile</h2>
-    <div class="profile-info">Logged in as: <b><?php echo $username; ?></b></div>
-
-    <form method="POST" action="">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" value="<?php echo $username; ?>" />
-
-        <label for="email">Email (not stored)</label>
-        <input type="email" id="email" name="email" placeholder="your.email@example.com" />
-
-        <button type="submit">Update Profile</button>
-    </form>
-
-    <div class="note">* Note: Profile updates not saved in demo version.</div>
+<div class="page-header">
+    <span class="eyebrow">Student record</span>
+    <h1><?= $profile ? $profile['full_name'] : 'Profile' ?></h1>
+    <p class="lede">Contact details and personal notes held by the registry.</p>
 </div>
-</body>
-</html>
+
+<?php if ($message !== ''): ?>
+    <div class="alert alert-success"><?= $message ?></div>
+<?php endif; ?>
+
+<?php if (!$profile): ?>
+    <div class="empty">
+        <strong>No record selected</strong>
+        <span>Sign in or open a profile from the directory.</span>
+        <p class="mt-16"><a class="btn btn-primary btn-sm" href="<?= url('login.php') ?>">Log in</a></p>
+    </div>
+<?php else: ?>
+    <div class="split">
+        <div class="card">
+            <div class="card-head">
+                <h2>Profile details</h2>
+                <span class="badge badge-accent"><?= $profile['role'] ?></span>
+            </div>
+            <div class="card-body">
+                <form class="form" method="post" action="">
+                    <input type="hidden" name="id" value="<?= $profile['id'] ?>">
+                    <input type="hidden" name="role" value="<?= $profile['role'] ?>">
+                    <input type="hidden" name="balance" value="<?= $profile['balance'] ?>">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="full_name">Full name</label>
+                            <input id="full_name" name="full_name" type="text" value="<?= $profile['full_name'] ?>">
+                        </div>
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" value="<?= $profile['email'] ?>">
+                        </div>
+                        <div class="field">
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="text" value="<?= $profile['phone'] ?>">
+                        </div>
+                        <div class="field">
+                            <label for="address">Address</label>
+                            <input id="address" name="address" type="text" value="<?= $profile['address'] ?>">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="bio">Biography</label>
+                        <textarea id="bio" name="bio"><?= $profile['bio'] ?></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">Save profile</button>
+                        <a class="btn btn-secondary" href="<?= url('transcript.php?id=' . $profile['id']) ?>">View transcript</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Registry notes</h3>
+                    <p class="small muted">Visible to the student and the registry team.</p>
+                    <div class="alert alert-info mono"><?= $profile['private_note'] ?></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Account facts</h3>
+                    <dl class="kv">
+                        <dt>Username</dt><dd><?= $profile['username'] ?></dd>
+                        <dt>National ID</dt><dd><?= $profile['national_id'] ?></dd>
+                        <dt>Balance</dt><dd><?= number_format((float) $profile['balance'], 2) ?></dd>
+                        <dt>Joined</dt><dd><?= $profile['created_at'] ?></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>Student ID card</h3>
+                    <p class="small muted">Download the machine readable card token for door access.</p>
+                    <a class="btn btn-secondary btn-sm" href="<?= url('idcard.php?id=' . $profile['id']) ?>">Open card</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+<?php endif; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

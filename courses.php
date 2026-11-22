@@ -1,96 +1,111 @@
 <?php
-include('config.php');
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Courses - Faultline University</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { font-family: Arial, sans-serif; background: #f3f6fb; }
-        .container {
-            max-width: 720px; margin: 40px auto; background: #fff;
-            border-radius: 12px; padding: 28px 28px; box-shadow: 0 2px 16px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #0c3b6c; font-weight: 700; margin-bottom: 20px;
-        }
-        form input[type=text] {
-            width: 60%; padding: 9px 14px; font-size: 1.05em; border-radius: 6px; border: 1.8px solid #0c3b6caa;
-            outline: none; transition: border-color 0.3s ease;
-        }
-        form input[type=text]:focus {
-            border-color: #467ee8;
-        }
-        form button {
-            padding: 10px 22px; background: #0c3b6c; border: none;
-            border-radius: 6px; color: white; font-weight: 600;
-            font-size: 1em; cursor: pointer;
-            margin-left: 8px; transition: background 0.3s ease;
-        }
-        form button:hover {
-            background: #3461a8;
-        }
-        table {
-            width: 100%; border-collapse: collapse; margin-top: 20px;
-        }
-        th, td {
-            padding: 12px 14px; border: 1.5px solid #0c3b6c50; text-align: left; font-size: 1em;
-        }
-        th {
-            background: #0c3b6c; color: white;
-        }
-        tr:nth-child(even) {
-            background: #f8faff;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Courses Offered</h2>
-    <form method="get" action="">
-        <input type="text" name="search" placeholder="Search courses by title..." value="<?php if(isset($_GET['search'])) echo $_GET['search']; ?>" />
-        <button type="submit">Search</button>
-    </form>
+require_once __DIR__ . '/config.php';
+session_start();
 
-    <?php
-    // Vulnerable to SQLi + reflected XSS in output below
-    $courses = [
-        ['code' => 'CS101', 'title' => 'Introduction to Computer Science'],
-        ['code' => 'MAT201', 'title' => 'Advanced Calculus'],
-        ['code' => 'PHY301', 'title' => 'Quantum Mechanics'],
-        ['code' => 'CHEM101', 'title' => 'Organic Chemistry'],
-        ['code' => 'BIO105', 'title' => 'General Biology']
-    ];
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$message = '';
+$userId = isset($_SESSION['user_id']) ? (int) $_SESSION['user_id'] : 0;
 
-    if(isset($_GET['search']) && $_GET['search'] !== '') {
-        $search = $_GET['search'];  // vulnerable raw input
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
+    $courseId = (int) $_POST['course_id'];
+    $enrollUser = isset($_POST['user_id']) ? (int) $_POST['user_id'] : $userId;
+    $postedCapacity = isset($_POST['capacity']) ? (int) $_POST['capacity'] : 0;
 
-        echo "<p>Showing results for: " . $_GET['search'] . "</p>"; // Reflected XSS!
+    $courseResult = $conn ? mysqli_query($conn, "SELECT * FROM courses WHERE id=$courseId") : false;
+    $course = $courseResult ? mysqli_fetch_assoc($courseResult) : null;
 
-        $matches = [];
-        foreach($courses as $course) {
-            if(stripos($course['title'], $search) !== false) {
-                $matches[] = $course;
-            }
-        }
+    if (!$course) {
+        $message = 'That course could not be found.';
+    } elseif ((int) $course['enrolled'] >= $postedCapacity) {
+        $message = 'This course is full.';
     } else {
-        $matches = $courses;
-    }
-    ?>
-
-    <table>
-        <thead>
-            <tr><th>Course Code</th><th>Course Title</th></tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($matches as $course) {
-            echo "<tr><td>{$course['code']}</td><td>{$course['title']}</td></tr>";
+        $sql = "INSERT INTO enrollments (user_id, course_id) VALUES ($enrollUser, $courseId)";
+        if (mysqli_query($conn, $sql)) {
+            mysqli_query($conn, "UPDATE courses SET enrolled = enrolled + 1 WHERE id=$courseId");
+            $message = 'Enrollment complete. The course is now on your dashboard.';
+        } else {
+            $message = 'You are already enrolled in this course.';
         }
-        ?>
-        </tbody>
-    </table>
+    }
+}
+
+$courses = false;
+if ($conn) {
+    if ($search !== '') {
+        $courses = mysqli_query($conn, "SELECT * FROM courses WHERE title LIKE '%$search%' OR code LIKE '%$search%' ORDER BY code");
+    } else {
+        $courses = mysqli_query($conn, 'SELECT * FROM courses ORDER BY code');
+    }
+}
+
+$pageTitle = 'Courses';
+$activeNav = 'courses';
+require_once __DIR__ . '/includes/header.php';
+?>
+<div class="page-header">
+    <span class="eyebrow">Catalog</span>
+    <h1>Courses this term</h1>
+    <p class="lede">Browse the catalog, check available seats and enroll from the list.</p>
 </div>
-</body>
-</html>
+
+<?php if ($message !== ''): ?>
+    <div class="alert alert-info"><?= $message ?></div>
+<?php endif; ?>
+
+<div class="card section">
+    <div class="card-body">
+        <form class="search-form" method="get" action="">
+            <label class="sr-only" for="search">Search courses</label>
+            <input id="search" name="search" type="search" placeholder="Search by code or title" value="<?= $search ?>">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <?php if ($search !== ''): ?>
+                <a class="btn btn-secondary" href="<?= url('courses.php') ?>">Clear</a>
+            <?php endif; ?>
+        </form>
+        <?php if ($search !== ''): ?>
+            <p class="small muted mt-16">Showing results for: <strong><?= $search ?></strong></p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php if ($courses && mysqli_num_rows($courses) > 0): ?>
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
+                <tr><th>Code</th><th>Course</th><th>Credits</th><th>Seats</th><th>Fee</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <?php while ($course = mysqli_fetch_assoc($courses)): ?>
+                    <tr>
+                        <td data-label="Code"><strong><?= $course['code'] ?></strong></td>
+                        <td data-label="Course">
+                            <strong><?= $course['title'] ?></strong>
+                            <div class="small muted"><?= $course['description'] ?></div>
+                        </td>
+                        <td data-label="Credits"><?= $course['credits'] ?></td>
+                        <td data-label="Seats"><?= $course['enrolled'] ?> / <?= $course['capacity'] ?></td>
+                        <td data-label="Fee"><?= number_format((float) $course['price'], 2) ?></td>
+                        <td data-label="Action">
+                            <?php if ($userId > 0): ?>
+                                <form method="post" action="">
+                                    <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                                    <input type="hidden" name="user_id" value="<?= $userId ?>">
+                                    <input type="hidden" name="capacity" value="<?= $course['capacity'] ?>">
+                                    <button class="btn btn-secondary btn-sm" type="submit">Enroll</button>
+                                </form>
+                            <?php else: ?>
+                                <a class="btn btn-secondary btn-sm" href="<?= url('login.php') ?>">Log in</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+    <div class="empty">
+        <strong>No courses matched</strong>
+        <span>Try a shorter search term or clear the filter.</span>
+    </div>
+<?php endif; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

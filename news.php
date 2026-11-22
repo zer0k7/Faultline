@@ -1,112 +1,65 @@
 <?php
-include('config.php');
-$results = null;
-if(isset($_GET['search'])) {
-    // Reflected XSS + SQL Injection vulnerabilities
-    $search = $_GET['search'];
-    $sql = "SELECT * FROM news WHERE title LIKE '%$search%'";
-    $results = mysqli_query($conn, $sql);
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>University News - Faultline University Portal</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { background: #f3f6fb; font-family: Arial, sans-serif; }
-        .container {
-            max-width: 780px;
-            margin: 40px auto 70px auto;
-            padding: 30px 28px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 22px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #0c3b6c;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        form input[type=text] {
-            width: 70%;
-            padding: 10px 14px;
-            font-size: 1.1em;
-            border-radius: 7px 0 0 7px;
-            border: 1.8px solid #0c3b6caa;
-            border-right: none;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-        form input[type=text]:focus {
-            border-color: #467ee8;
-        }
-        form button {
-            background: #0c3b6c;
-            padding: 11.5px 22px;
-            border: none;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1em;
-            border-radius: 0 7px 7px 0;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        form button:hover {
-            background: #3461a8;
-        }
-        .search-info {
-            margin-top: 16px;
-            font-weight: 600;
-            color: #1f497d;
-            opacity: 0.9;
-            text-align: center;
-        }
-        .news-item {
-            padding: 18px 20px;
-            border-bottom: 1px solid #ddd;
-            color: #222;
-        }
-        .news-item b {
-            color: #0c3b6c;
-            font-size: 1.3em;
-        }
-        .news-item:last-child {
-            border: none;
-        }
-    </style>
-</head>
-<body>
+require_once __DIR__ . '/config.php';
+setcookie('xss_canary', flag_value('xss.txt'), 0, '/');
 
-<div class="container">
-    <h2>University News Board</h2>
-    <form method="get" action="">
-        <input type="text" name="search" placeholder="Search news titles..." value="<?php if(isset($_GET['search'])) echo $_GET['search']; ?>" />
-        <button type="submit">Search</button>
-    </form>
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$results = false;
 
-    <?php
-    if(isset($_GET['search'])) {
-        // Reflected XSS in output left intentionally
-        echo "<div class='search-info'>Results for <b>" . $_GET['search'] . "</b>:</div>";
-        if($results && mysqli_num_rows($results) > 0) {
-            while($row = mysqli_fetch_assoc($results)) {
-                echo "<div class='news-item'><b>" . $row['title'] . "</b><br>" . $row['content'] . "</div>";
-            }
-        } else {
-            echo "<div class='search-info'>No results found.</div>";
-        }
+if ($conn) {
+    if ($search !== '') {
+        $results = mysqli_query($conn, "SELECT * FROM news WHERE title LIKE '%$search%'");
     } else {
-        // Show all news by default
-        echo "<div class='search-info'>Latest News:</div>";
-        $res = mysqli_query($conn, "SELECT * FROM news ORDER BY id DESC LIMIT 5");
-        while($row = mysqli_fetch_assoc($res)) {
-            echo "<div class='news-item'><b>" . $row['title'] . "</b><br>" . $row['content'] . "</div>";
-        }
+        $results = mysqli_query($conn, 'SELECT * FROM news ORDER BY id DESC LIMIT 6');
     }
-    ?>
+}
+
+$pageTitle = 'News';
+$activeNav = 'news';
+require_once __DIR__ . '/includes/header.php';
+?>
+<div class="page-header">
+    <span class="eyebrow">Campus desk</span>
+    <h1>News and notices</h1>
+    <p class="lede">Library hours, assessment dates and campus updates from the registry.</p>
 </div>
 
-</body>
-</html>
+<div class="card section">
+    <div class="card-body">
+        <form class="search-form" method="get" action="">
+            <label class="sr-only" for="search">Search news</label>
+            <input id="search" name="search" type="search" placeholder="Search news titles" value="<?= $search ?>">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <?php if ($search !== ''): ?>
+                <a class="btn btn-secondary" href="<?= url('news.php') ?>">Clear</a>
+            <?php endif; ?>
+        </form>
+        <?php if ($search !== ''): ?>
+            <p class="small muted mt-16">Results for: <strong><?= $search ?></strong></p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div id="cdn-widget" class="alert alert-info"></div>
+
+<div class="card">
+    <div class="card-body">
+        <?php if ($results && mysqli_num_rows($results) > 0): ?>
+            <?php while ($item = mysqli_fetch_assoc($results)): ?>
+                <article class="news-item">
+                    <h2><?= $item['title'] ?></h2>
+                    <div class="meta"><?= $item['author'] ?> · <?= $item['created_at'] ?></div>
+                    <p><?= $item['content'] ?></p>
+                </article>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="empty">
+                <strong>No notices found</strong>
+                <span>Try a different search term.</span>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="http://internal/cdn/widget.js"></script>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

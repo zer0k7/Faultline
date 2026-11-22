@@ -1,107 +1,54 @@
 <?php
-// Unrestricted file upload (for demo: intentionally vulnerable)
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-    $target = "uploads/" . $_FILES['file']['name'];
-    move_uploaded_file($_FILES['file']['tmp_name'], $target);
-    $msg = "Your profile picture was uploaded!";
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Profile Picture - Faultline University Portal</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { background: #f3f6fb; font-family: Arial, sans-serif; }
-        .container {
-            max-width: 430px;
-            margin: 55px auto 60px auto;
-            padding: 35px 30px 30px 30px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 18px #0002;
-            text-align: center;
-        }
-        h2 {
-            color: #0c3b6c;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .desc {
-            color: #2a2f36bb;
-            font-size: 1em;
-            margin-bottom: 30px;
-        }
-        .profile-img {
-            display: inline-block;
-            margin: 14px 0 18px 0;
-            border-radius: 50%;
-            background: #f2f7ff;
-            border: 2.5px solid #c3dafc;
-            padding: 6px;
-            height: 76px;
-            width: 76px;
-            object-fit: cover;
-            box-shadow: 0 2px 8px #89b1e866;
-        }
-        form input[type="file"] {
-            margin: 18px 0 20px 0;
-            font-size: 1.05em;
-            border: none;
-            padding: 2px;
-            width: 90%;
-        }
-        button {
-            background: #0c3b6c;
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1em;
-            border: none;
-            padding: 12px 0;
-            border-radius: 7px;
-            width: 100%;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #3461a8;
-        }
-        .success-msg {
-            margin: 10px 0 18px 0;
-            color: #268b01;
-            font-weight: 600;
-            font-size: 1.04em;
-        }
-        .note {
-            font-size: 0.95em;
-            margin-top: 18px;
-            color: #777;
-            opacity: .87;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Update Profile Picture</h2>
-    <div class="desc">Upload your display photo! The allowed files for this demo are not restricted. <br> After uploading, you can <b>refresh</b> to see your new image.</div>
-    <?php
-    if(isset($msg)) {
-        echo "<div class='success-msg'>$msg</div>";
-        $src = "uploads/" . htmlspecialchars($_FILES['file']['name']);
-        // Show uploaded image preview if file is an image (for demo only)
-        $ext = strtolower(pathinfo($src, PATHINFO_EXTENSION));
-        if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif','bmp','webp'])) {
-            echo "<img src='$src' class='profile-img' alt='Profile Picture'>";
-        }
+require_once __DIR__ . '/config.php';
+session_start();
+
+$message = '';
+$uploaded = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+    $target = __DIR__ . '/uploads/' . $_FILES['file']['name'];
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
+        $message = 'Your file was uploaded.';
+        $uploaded = 'uploads/' . $_FILES['file']['name'];
+    } else {
+        $message = 'The upload did not complete.';
     }
-    ?>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" required />
-        <button type="submit">Upload Picture</button>
-    </form>
-    <div class="note">
-        <b>Note:</b> This page is intentionally <span style="color:#c23c25;">insecure</span> and allows any file type. In real applications, always restrict and validate uploads.
+}
+
+$pageTitle = 'Upload';
+$activeNav = 'upload';
+require_once __DIR__ . '/includes/header.php';
+?>
+<div class="page-header">
+    <span class="eyebrow">Profile media</span>
+    <h1>Profile photo and documents</h1>
+    <p class="lede">Upload a photo for your student card or attach a supporting document.</p>
+</div>
+
+<div class="page-narrow">
+    <div class="card">
+        <div class="card-body">
+            <?php if ($message !== ''): ?>
+                <div class="alert alert-success"><?= $message ?></div>
+            <?php endif; ?>
+            <?php if ($uploaded !== ''): ?>
+                <p class="small">Stored at <a href="<?= url($uploaded) ?>"><?= $uploaded ?></a></p>
+                <?php if (preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $uploaded)): ?>
+                    <img class="upload-preview" src="<?= url($uploaded) ?>" alt="Uploaded profile file">
+                <?php endif; ?>
+            <?php endif; ?>
+            <form class="form" method="post" action="" enctype="multipart/form-data">
+                <div class="field">
+                    <label for="file">Choose a file</label>
+                    <input id="file" name="file" type="file" required>
+                    <span class="help">JPG, PNG or PDF for card photos. Maximum 32 MB.</span>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Upload file</button>
+                    <a class="btn btn-secondary" href="<?= url('uploads/') ?>">Open upload folder</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-</body>
-</html>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

@@ -1,78 +1,87 @@
 <?php
-include('config.php');
+require_once __DIR__ . '/config.php';
 session_start();
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-    // Store contact messages directly without sanitization & Display back - vulnerability demonstration
+
+$confirmation = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $message = $_POST['message'];
-    // You can optionally save them to a DB or file, but here we'll just show a confirmation with reflected input (XSS vulnerability)
-    $confirmation = "Thank you, $name, for contacting us! We will reach you at $email.";
+    if ($conn) {
+        mysqli_query($conn, "INSERT INTO contact_messages (name, email, message) VALUES ('$name', '$email', '$message')");
+    }
+    $confirmation = "Thank you, $name. The help desk will reply to $email.";
 }
+
+$messages = $conn ? mysqli_query($conn, 'SELECT * FROM contact_messages ORDER BY id DESC LIMIT 5') : false;
+
+$pageTitle = 'Contact';
+$activeNav = 'contact';
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Contact Us - Faultline University</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        body { background: #f3f6fb; font-family: Arial, sans-serif; }
-        .container {
-            max-width: 470px; margin: 55px auto 70px auto; background: #fff;
-            padding: 35px 28px; border-radius: 12px; box-shadow: 0 2px 18px #0002;
-        }
-        h2 {
-            color: #0c3b6c; font-weight: 700; margin-bottom: 20px; text-align: center;
-        }
-        label {
-            font-weight: 600; color: #23598c; display: block; margin-top: 16px;
-        }
-        input[type=text], input[type=email], textarea {
-            width: 100%; padding: 10px 14px; margin-top: 6px;
-            border-radius: 7px; border: 1.8px solid #0c3b6caa; font-size: 1.03em;
-            box-sizing: border-box; transition: border-color 0.3s ease;
-            font-family: Arial, sans-serif;
-        }
-        input[type=text]:focus, input[type=email]:focus, textarea:focus {
-            border-color: #467ee8; outline: none;
-        }
-        textarea {
-            min-height: 100px; resize: vertical;
-        }
-        button {
-            margin-top: 24px; width: 100%; background: #0c3b6c; border: none;
-            border-radius: 8px; padding: 12px 0; font-weight: 700; color: white;
-            font-size: 1.1em; cursor: pointer; transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #3461a8;
-        }
-        .confirmation {
-            margin-top: 20px; font-size: 1.05em; font-weight: 600; text-align: center; color: #268b01;
-            padding: 12px; background: #defbdc; border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h2>Contact Us</h2>
-    <form method="POST" action="">
-        <label for="name">Your Name:</label>
-        <input id="name" name="name" type="text" required />
-
-        <label for="email">Your Email:</label>
-        <input id="email" name="email" type="email" required />
-
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" required></textarea>
-
-        <button type="submit">Send Message</button>
-    </form>
-
-    <?php if(isset($confirmation)) {
-        // Vulnerable reflected outputs (stored/reflect XSS possible)
-        echo "<div class='confirmation'>$confirmation</div>";
-    } ?>
+<div class="page-header">
+    <span class="eyebrow">Help desk</span>
+    <h1>Contact the student office</h1>
+    <p class="lede">Questions about records, fees or course changes. The desk answers on weekdays.</p>
 </div>
-</body>
-</html>
+
+<div class="split">
+    <div class="card">
+        <div class="card-body">
+            <?php if ($confirmation !== ''): ?>
+                <div class="alert alert-success"><?= $confirmation ?></div>
+            <?php endif; ?>
+            <form class="form" method="post" action="">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">Your name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Send message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-body">
+                <h3>Office hours</h3>
+                <dl class="kv">
+                    <dt>Monday to Thursday</dt><dd>09:00 to 16:00</dd>
+                    <dt>Friday</dt><dd>09:00 to 13:00</dd>
+                    <dt>Email</dt><dd>helpdesk@faultline.test</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h3>Recent messages</h3>
+                <?php if ($messages && mysqli_num_rows($messages) > 0): ?>
+                    <div class="stack">
+                        <?php while ($row = mysqli_fetch_assoc($messages)): ?>
+                            <div>
+                                <div class="small muted"><?= $row['name'] ?> · <?= $row['created_at'] ?></div>
+                                <p class="small"><?= $row['message'] ?></p>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                <?php else: ?>
+                    <p class="small muted">No messages yet.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </aside>
+</div>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
