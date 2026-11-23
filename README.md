@@ -116,8 +116,8 @@ A short walkthrough will replace this card before the public release.
 ### Start with Docker
 
 ```bash
-git clone https://github.com/zer0k7/UniversityPortal_Security_Audit.git
-cd UniversityPortal_Security_Audit
+git clone https://github.com/zer0k7/Faultline.git
+cd Faultline
 make up
 ```
 
