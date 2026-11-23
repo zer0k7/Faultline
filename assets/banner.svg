@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="1200" height="340" role="img" aria-labelledby="bannerTitle bannerDesc">
+  <title id="bannerTitle">Faultline University Portal</title>
+  <desc id="bannerDesc">A dark navy banner with an orange fault line motif and the words Faultline University Portal Security Lab.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b2d"/>
+      <stop offset="0.55" stop-color="#13243a"/>
+      <stop offset="1" stop-color="#0b1524"/>
+    </linearGradient>
+    <linearGradient id="crack" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#f08a5d"/>
+      <stop offset="0.5" stop-color="#e0592a"/>
+      <stop offset="1" stop-color="#b93c16"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/>
+    </pattern>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .pulse {
+        animation: pulse 7s ease-in-out infinite;
+        transform-origin: center;
+      }
+      .trace {
+        stroke-dasharray: 900;
+        animation: trace 11s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.62; }
+        50% { opacity: 1; }
+      }
+      @keyframes trace {
+        0%, 100% { stroke-dashoffset: 0; }
+        50% { stroke-dashoffset: 18; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .pulse, .trace { animation: none; }
+      }
+    </style>
+  </defs>
+
+  <rect width="1200" height="340" rx="26" fill="url(#bg)"/>
+  <rect width="1200" height="340" rx="26" fill="url(#grid)"/>
+  <rect x="0.75" y="0.75" width="1198.5" height="338.5" rx="25.25" fill="none" stroke="#ffffff" stroke-opacity="0.09"/>
+
+  <g opacity="0.5" fill="none" stroke="#e0592a" stroke-width="1">
+    <path d="M948 34 1030 96 1004 178 1088 244 1062 318"/>
+    <path d="M1114 34 1064 104 1106 172 1042 238"/>
+    <path d="M836 34 894 92 866 160 924 226 902 318"/>
+  </g>
+
+  <g filter="url(#softGlow)" class="pulse" opacity="0.8">
+    <path d="M770 0 824 62 804 116 884 192 852 254 930 340" fill="none" stroke="#e0592a" stroke-width="14" stroke-opacity="0.13"/>
+  </g>
+  <path class="trace" d="M770 0 824 62 804 116 884 192 852 254 930 340" fill="none" stroke="url(#crack)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M824 62 868 48M804 116 766 138M884 192 940 182M852 254 806 276" fill="none" stroke="#e0592a" stroke-width="2.4" stroke-linecap="round" opacity="0.8"/>
+
+  <g transform="translate(72 68)">
+    <rect width="92" height="92" rx="20" fill="#15263d" stroke="#ffffff" stroke-opacity="0.1"/>
+    <g transform="translate(14 14)">
+      <path d="M8 22h14l5 7 7-14 8 19 6-9h8" fill="none" stroke="#e0592a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 47h12l6-8 6 8h16" fill="none" stroke="#f3f6fa" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.86"/>
+      <circle cx="45" cy="21" r="3" fill="#e0592a"/>
+    </g>
+  </g>
+
+  <text x="192" y="126" fill="#f5f6f8" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-2.2">Faultline</text>
+  <text x="196" y="166" fill="#b9c5d4" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="500" letter-spacing="0.4">University Portal Security Lab</text>
+
+  <g font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="0.7">
+    <rect x="196" y="198" width="206" height="34" rx="17" fill="#e0592a" fill-opacity="0.16" stroke="#e0592a" stroke-opacity="0.45"/>
+    <text x="214" y="220" fill="#f2a184">OWASP TOP 10:2025</text>
+    <rect x="414" y="198" width="154" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="432" y="220" fill="#dce4ee">24 LAB MODULES</text>
+    <rect x="580" y="198" width="176" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="598" y="220" fill="#dce4ee">LOCAL TRAINING TARGET</text>
+  </g>
+
+  <text x="196" y="284" fill="#8495a9" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="14">PHP 8.2 / MySQL 8 / Apache / Docker</text>
+  <text x="72" y="318" fill="#6d7e93" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="12" letter-spacing="1.3">RUN ON LOCALHOST ONLY</text>
+</svg>

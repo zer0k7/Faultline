@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="img" aria-labelledby="shotTitle shotDesc">
+  <title id="shotTitle">Course catalog screenshot placeholder</title>
+  <desc id="shotDesc">A dark wireframe placeholder for the Faultline course catalog capture at 1440 by 900.</desc>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#ffffff" fill-opacity="0.04"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1b2d" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0f1b2d" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#091220"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="#0f1b2d" stroke="#2a3a52"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#dots)"/>
+
+  <rect x="40" y="40" width="1360" height="66" rx="12" fill="#14243a"/>
+  <circle cx="76" cy="73" r="14" fill="#e0592a" opacity="0.8"/>
+  <rect x="102" y="64" width="116" height="12" rx="6" fill="#e7edf5" opacity="0.65"/>
+  <g fill="#8fa0b5" opacity="0.55">
+    <rect x="420" y="67" width="72" height="9" rx="4.5"/>
+    <rect x="516" y="67" width="62" height="9" rx="4.5"/>
+    <rect x="602" y="67" width="54" height="9" rx="4.5"/>
+    <rect x="680" y="67" width="66" height="9" rx="4.5"/>
+  </g>
+  <rect x="1180" y="56" width="174" height="34" rx="17" fill="#1d3049" stroke="#ffffff" stroke-opacity="0.12"/>
+  <rect x="1200" y="67" width="134" height="9" rx="4.5" fill="#ffffff" opacity="0.3"/>
+
+  <g>
+    <rect x="40" y="126" width="1360" height="148" rx="14" fill="#14243a"/>
+    <rect x="68" y="154" width="352" height="22" rx="11" fill="#eef3f9" opacity="0.72"/>
+    <rect x="68" y="194" width="540" height="9" rx="4.5" fill="#9aabbf" opacity="0.38"/>
+    <rect x="68" y="216" width="420" height="9" rx="4.5" fill="#9aabbf" opacity="0.3"/>
+    <rect x="1040" y="166" width="328" height="48" rx="12" fill="#0d1929" stroke="#2a3a52"/>
+    <circle cx="1068" cy="190" r="8" fill="none" stroke="#e0592a" stroke-width="3" opacity="0.8"/>
+    <path d="M1074 196l10 10" stroke="#e0592a" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+    <rect x="1092" y="185" width="180" height="10" rx="5" fill="#ffffff" opacity="0.18"/>
+  </g>
+
+  <g>
+    <rect x="40" y="298" width="412" height="306" rx="14" fill="#122034"/>
+    <rect x="68" y="326" width="68" height="24" rx="12" fill="#e0592a" opacity="0.25"/>
+    <rect x="68" y="368" width="268" height="18" rx="9" fill="#e7edf5" opacity="0.62"/>
+    <rect x="68" y="404" width="336" height="9" rx="4.5" fill="#8fa0b5" opacity="0.3"/>
+    <rect x="68" y="426" width="304" height="9" rx="4.5" fill="#8fa0b5" opacity="0.24"/>
+    <rect x="68" y="448" width="326" height="9" rx="4.5" fill="#8fa0b5" opacity="0.2"/>
+    <rect x="68" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="188" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="308" y="500" width="96" height="52" rx="10" fill="#e0592a" opacity="0.22"/>
+  </g>
+  <g>
+    <rect x="474" y="298" width="412" height="306" rx="14" fill="#122034"/>
+    <rect x="502" y="326" width="68" height="24" rx="12" fill="#e0592a" opacity="0.25"/>
+    <rect x="502" y="368" width="230" height="18" rx="9" fill="#e7edf5" opacity="0.62"/>
+    <rect x="502" y="404" width="336" height="9" rx="4.5" fill="#8fa0b5" opacity="0.3"/>
+    <rect x="502" y="426" width="286" height="9" rx="4.5" fill="#8fa0b5" opacity="0.24"/>
+    <rect x="502" y="448" width="318" height="9" rx="4.5" fill="#8fa0b5" opacity="0.2"/>
+    <rect x="502" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="622" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="742" y="500" width="96" height="52" rx="10" fill="#e0592a" opacity="0.22"/>
+  </g>
+  <g>
+    <rect x="908" y="298" width="492" height="306" rx="14" fill="#122034"/>
+    <rect x="936" y="326" width="68" height="24" rx="12" fill="#e0592a" opacity="0.25"/>
+    <rect x="936" y="368" width="300" height="18" rx="9" fill="#e7edf5" opacity="0.62"/>
+    <rect x="936" y="404" width="408" height="9" rx="4.5" fill="#8fa0b5" opacity="0.3"/>
+    <rect x="936" y="426" width="366" height="9" rx="4.5" fill="#8fa0b5" opacity="0.24"/>
+    <rect x="936" y="448" width="392" height="9" rx="4.5" fill="#8fa0b5" opacity="0.2"/>
+    <rect x="936" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="1056" y="500" width="104" height="52" rx="10" fill="#1a2c44"/>
+    <rect x="1176" y="500" width="96" height="52" rx="10" fill="#e0592a" opacity="0.22"/>
+  </g>
+
+  <g>
+    <rect x="40" y="628" width="1360" height="212" rx="14" fill="#122034"/>
+    <rect x="68" y="656" width="248" height="14" rx="7" fill="#dbe5f1" opacity="0.55"/>
+    <g fill="#8fa0b5" opacity="0.2">
+      <rect x="68" y="696" width="1300" height="34" rx="8"/>
+      <rect x="68" y="744" width="1300" height="34" rx="8"/>
+      <rect x="68" y="792" width="1300" height="34" rx="8"/>
+    </g>
+    <g fill="#e0592a" opacity="0.32">
+      <rect x="88" y="708" width="64" height="10" rx="5"/>
+      <rect x="88" y="756" width="64" height="10" rx="5"/>
+      <rect x="88" y="804" width="64" height="10" rx="5"/>
+    </g>
+  </g>
+
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#fade)" opacity="0.55"/>
+
+  <g>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="#0c1726" stroke="#e0592a" stroke-opacity="0.45"/>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+    <text x="720" y="378" text-anchor="middle" fill="#e0592a" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.4">SCREENSHOT PLACEHOLDER</text>
+    <text x="720" y="448" text-anchor="middle" fill="#f5f6f8" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1">Course Catalog</text>
+    <text x="720" y="482" text-anchor="middle" fill="#a8b7c9" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="18">Search, enrollment, capacity, and faculty</text>
+    <rect x="638" y="512" width="164" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="720" y="534" text-anchor="middle" fill="#cbd6e3" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="0.8">1440 x 900 CAPTURE</text>
+  </g>
+
+  <g stroke="#e0592a" stroke-width="3" stroke-linecap="round" opacity="0.8">
+    <path d="M52 116v-18h18M1388 116v-18h-18M52 786v18h18M1388 786v18h-18"/>
+  </g>
+</svg>

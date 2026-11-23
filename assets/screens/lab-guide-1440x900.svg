@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="img" aria-labelledby="shotTitle shotDesc">
+  <title id="shotTitle">Lab Guide screenshot placeholder</title>
+  <desc id="shotDesc">A dark wireframe placeholder for the Faultline Lab Guide capture at 1440 by 900.</desc>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#ffffff" fill-opacity="0.04"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1b2d" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0f1b2d" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#091220"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="#0f1b2d" stroke="#2a3a52"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#dots)"/>
+
+  <rect x="40" y="40" width="1360" height="66" rx="12" fill="#14243a"/>
+  <circle cx="76" cy="73" r="14" fill="#e0592a" opacity="0.8"/>
+  <rect x="102" y="64" width="116" height="12" rx="6" fill="#e7edf5" opacity="0.65"/>
+  <g fill="#8fa0b5" opacity="0.55">
+    <rect x="420" y="67" width="72" height="9" rx="4.5"/>
+    <rect x="516" y="67" width="62" height="9" rx="4.5"/>
+    <rect x="602" y="67" width="54" height="9" rx="4.5"/>
+    <rect x="680" y="67" width="66" height="9" rx="4.5"/>
+  </g>
+  <rect x="1180" y="56" width="92" height="34" rx="17" fill="#e0592a" opacity="0.9"/>
+  <rect x="1236" y="67" width="76" height="9" rx="4.5" fill="#ffffff" opacity="0.38"/>
+
+  <rect x="40" y="126" width="252" height="714" rx="14" fill="#122034"/>
+  <rect x="64" y="154" width="116" height="12" rx="6" fill="#e0592a" opacity="0.7"/>
+  <g fill="#93a4b9" opacity="0.42">
+    <rect x="64" y="192" width="182" height="8" rx="4"/>
+    <rect x="64" y="220" width="140" height="8" rx="4"/>
+    <rect x="64" y="248" width="166" height="8" rx="4"/>
+    <rect x="64" y="276" width="122" height="8" rx="4"/>
+    <rect x="64" y="304" width="176" height="8" rx="4"/>
+    <rect x="64" y="332" width="150" height="8" rx="4"/>
+  </g>
+  <rect x="64" y="764" width="204" height="48" rx="10" fill="#1a2c44"/>
+
+  <g>
+    <rect x="324" y="126" width="1076" height="132" rx="14" fill="#14243a"/>
+    <rect x="352" y="154" width="360" height="22" rx="11" fill="#eef3f9" opacity="0.72"/>
+    <rect x="352" y="194" width="520" height="10" rx="5" fill="#9aabbf" opacity="0.42"/>
+    <rect x="352" y="216" width="440" height="10" rx="5" fill="#9aabbf" opacity="0.32"/>
+    <rect x="1160" y="156" width="208" height="44" rx="22" fill="#e0592a" opacity="0.16" stroke="#e0592a" stroke-opacity="0.5"/>
+  </g>
+
+  <g>
+    <rect x="324" y="286" width="520" height="254" rx="14" fill="#122034"/>
+    <rect x="352" y="314" width="206" height="14" rx="7" fill="#dbe5f1" opacity="0.6"/>
+    <rect x="352" y="344" width="120" height="8" rx="4" fill="#8fa0b5" opacity="0.36"/>
+    <rect x="352" y="382" width="460" height="10" rx="5" fill="#8fa0b5" opacity="0.26"/>
+    <rect x="352" y="416" width="420" height="10" rx="5" fill="#8fa0b5" opacity="0.22"/>
+    <rect x="352" y="450" width="464" height="10" rx="5" fill="#8fa0b5" opacity="0.2"/>
+    <rect x="352" y="492" width="104" height="22" rx="11" fill="#e0592a" opacity="0.5"/>
+  </g>
+  <g>
+    <rect x="880" y="286" width="520" height="254" rx="14" fill="#122034"/>
+    <rect x="908" y="314" width="240" height="14" rx="7" fill="#dbe5f1" opacity="0.6"/>
+    <rect x="908" y="344" width="132" height="8" rx="4" fill="#8fa0b5" opacity="0.36"/>
+    <rect x="908" y="382" width="460" height="10" rx="5" fill="#8fa0b5" opacity="0.26"/>
+    <rect x="908" y="416" width="398" height="10" rx="5" fill="#8fa0b5" opacity="0.22"/>
+    <rect x="908" y="450" width="430" height="10" rx="5" fill="#8fa0b5" opacity="0.2"/>
+    <rect x="908" y="492" width="104" height="22" rx="11" fill="#e0592a" opacity="0.5"/>
+  </g>
+
+  <g>
+    <rect x="324" y="574" width="1076" height="266" rx="14" fill="#122034"/>
+    <rect x="352" y="602" width="268" height="14" rx="7" fill="#dbe5f1" opacity="0.55"/>
+    <g fill="#8fa0b5" opacity="0.2">
+      <rect x="352" y="646" width="1020" height="34" rx="8"/>
+      <rect x="352" y="694" width="1020" height="34" rx="8"/>
+      <rect x="352" y="742" width="1020" height="34" rx="8"/>
+      <rect x="352" y="790" width="1020" height="34" rx="8"/>
+    </g>
+    <g fill="#e0592a" opacity="0.34">
+      <rect x="372" y="658" width="60" height="10" rx="5"/>
+      <rect x="372" y="706" width="60" height="10" rx="5"/>
+      <rect x="372" y="754" width="60" height="10" rx="5"/>
+      <rect x="372" y="802" width="60" height="10" rx="5"/>
+    </g>
+  </g>
+
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#fade)" opacity="0.55"/>
+
+  <g>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="#0c1726" stroke="#e0592a" stroke-opacity="0.45"/>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+    <text x="720" y="378" text-anchor="middle" fill="#e0592a" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.4">SCREENSHOT PLACEHOLDER</text>
+    <text x="720" y="448" text-anchor="middle" fill="#f5f6f8" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1">Lab Guide</text>
+    <text x="720" y="482" text-anchor="middle" fill="#a8b7c9" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="18">Category overview, module cards, and saved progress</text>
+    <rect x="638" y="512" width="164" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="720" y="534" text-anchor="middle" fill="#cbd6e3" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="0.8">1440 x 900 CAPTURE</text>
+  </g>
+
+  <g stroke="#e0592a" stroke-width="3" stroke-linecap="round" opacity="0.8">
+    <path d="M52 116v-18h18M1388 116v-18h-18M52 786v18h18M1388 786v18h-18"/>
+  </g>
+</svg>

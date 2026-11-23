@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="1440" height="900" role="img" aria-labelledby="shotTitle shotDesc">
+  <title id="shotTitle">Student dashboard screenshot placeholder</title>
+  <desc id="shotDesc">A dark wireframe placeholder for the Faultline student dashboard capture at 1440 by 900.</desc>
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#ffffff" fill-opacity="0.04"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1b2d" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0f1b2d" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#091220"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="#0f1b2d" stroke="#2a3a52"/>
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#dots)"/>
+
+  <rect x="40" y="40" width="1360" height="66" rx="12" fill="#14243a"/>
+  <circle cx="76" cy="73" r="14" fill="#e0592a" opacity="0.8"/>
+  <rect x="102" y="64" width="116" height="12" rx="6" fill="#e7edf5" opacity="0.65"/>
+  <g fill="#8fa0b5" opacity="0.55">
+    <rect x="420" y="67" width="72" height="9" rx="4.5"/>
+    <rect x="516" y="67" width="62" height="9" rx="4.5"/>
+    <rect x="602" y="67" width="54" height="9" rx="4.5"/>
+    <rect x="680" y="67" width="66" height="9" rx="4.5"/>
+  </g>
+  <circle cx="1222" cy="73" r="17" fill="#1d3049"/>
+  <rect x="1248" y="67" width="86" height="10" rx="5" fill="#ffffff" opacity="0.3"/>
+
+  <g>
+    <rect x="40" y="126" width="1360" height="118" rx="14" fill="#14243a"/>
+    <rect x="68" y="152" width="304" height="20" rx="10" fill="#eef3f9" opacity="0.72"/>
+    <rect x="68" y="188" width="430" height="9" rx="4.5" fill="#9aabbf" opacity="0.38"/>
+    <rect x="1128" y="156" width="236" height="52" rx="12" fill="#e0592a" opacity="0.16" stroke="#e0592a" stroke-opacity="0.46"/>
+    <circle cx="1162" cy="182" r="10" fill="#e0592a" opacity="0.62"/>
+    <rect x="1184" y="176" width="142" height="10" rx="5" fill="#d9e3ef" opacity="0.36"/>
+  </g>
+
+  <g>
+    <rect x="40" y="272" width="330" height="184" rx="14" fill="#122034"/>
+    <rect x="66" y="300" width="96" height="9" rx="4.5" fill="#e0592a" opacity="0.58"/>
+    <rect x="66" y="332" width="166" height="42" rx="10" fill="#dfe8f3" opacity="0.68"/>
+    <rect x="66" y="396" width="210" height="9" rx="4.5" fill="#8fa0b5" opacity="0.28"/>
+  </g>
+  <g>
+    <rect x="390" y="272" width="330" height="184" rx="14" fill="#122034"/>
+    <rect x="416" y="300" width="112" height="9" rx="4.5" fill="#e0592a" opacity="0.58"/>
+    <rect x="416" y="332" width="132" height="42" rx="10" fill="#dfe8f3" opacity="0.68"/>
+    <rect x="416" y="396" width="224" height="9" rx="4.5" fill="#8fa0b5" opacity="0.28"/>
+  </g>
+  <g>
+    <rect x="740" y="272" width="330" height="184" rx="14" fill="#122034"/>
+    <rect x="766" y="300" width="88" height="9" rx="4.5" fill="#e0592a" opacity="0.58"/>
+    <rect x="766" y="332" width="158" height="42" rx="10" fill="#dfe8f3" opacity="0.68"/>
+    <rect x="766" y="396" width="198" height="9" rx="4.5" fill="#8fa0b5" opacity="0.28"/>
+  </g>
+  <g>
+    <rect x="1090" y="272" width="310" height="184" rx="14" fill="#122034"/>
+    <rect x="1116" y="300" width="124" height="9" rx="4.5" fill="#e0592a" opacity="0.58"/>
+    <rect x="1116" y="332" width="92" height="42" rx="10" fill="#dfe8f3" opacity="0.68"/>
+    <rect x="1116" y="396" width="240" height="9" rx="4.5" fill="#8fa0b5" opacity="0.28"/>
+  </g>
+
+  <g>
+    <rect x="40" y="484" width="836" height="356" rx="14" fill="#122034"/>
+    <rect x="68" y="512" width="238" height="14" rx="7" fill="#dbe5f1" opacity="0.58"/>
+    <g fill="#8fa0b5" opacity="0.2">
+      <rect x="68" y="554" width="780" height="40" rx="8"/>
+      <rect x="68" y="608" width="780" height="40" rx="8"/>
+      <rect x="68" y="662" width="780" height="40" rx="8"/>
+      <rect x="68" y="716" width="780" height="40" rx="8"/>
+      <rect x="68" y="770" width="780" height="40" rx="8"/>
+    </g>
+    <g fill="#e0592a" opacity="0.33">
+      <rect x="86" y="568" width="58" height="12" rx="6"/>
+      <rect x="86" y="622" width="58" height="12" rx="6"/>
+      <rect x="86" y="676" width="58" height="12" rx="6"/>
+      <rect x="86" y="730" width="58" height="12" rx="6"/>
+      <rect x="86" y="784" width="58" height="12" rx="6"/>
+    </g>
+  </g>
+
+  <g>
+    <rect x="904" y="484" width="496" height="356" rx="14" fill="#122034"/>
+    <rect x="932" y="512" width="204" height="14" rx="7" fill="#dbe5f1" opacity="0.58"/>
+    <g fill="#1c3049">
+      <rect x="932" y="556" width="440" height="72" rx="10"/>
+      <rect x="932" y="642" width="440" height="72" rx="10"/>
+      <rect x="932" y="728" width="440" height="72" rx="10"/>
+    </g>
+    <g fill="#e0592a" opacity="0.28">
+      <circle cx="966" cy="592" r="10"/>
+      <circle cx="966" cy="678" r="10"/>
+      <circle cx="966" cy="764" r="10"/>
+    </g>
+    <g fill="#9fb0c4" opacity="0.28">
+      <rect x="994" y="584" width="220" height="9" rx="4.5"/>
+      <rect x="994" y="604" width="160" height="8" rx="4"/>
+      <rect x="994" y="670" width="196" height="9" rx="4.5"/>
+      <rect x="994" y="690" width="140" height="8" rx="4"/>
+      <rect x="994" y="756" width="236" height="9" rx="4.5"/>
+      <rect x="994" y="776" width="176" height="8" rx="4"/>
+    </g>
+  </g>
+
+  <rect x="24" y="24" width="1392" height="852" rx="22" fill="url(#fade)" opacity="0.55"/>
+
+  <g>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="#0c1726" stroke="#e0592a" stroke-opacity="0.45"/>
+    <rect x="436" y="322" width="568" height="252" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+    <text x="720" y="378" text-anchor="middle" fill="#e0592a" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2.4">SCREENSHOT PLACEHOLDER</text>
+    <text x="720" y="448" text-anchor="middle" fill="#f5f6f8" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1">Student Dashboard</text>
+    <text x="720" y="482" text-anchor="middle" fill="#a8b7c9" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="18">Records, courses, grades, and fee status</text>
+    <rect x="638" y="512" width="164" height="34" rx="17" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="720" y="534" text-anchor="middle" fill="#cbd6e3" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" letter-spacing="0.8">1440 x 900 CAPTURE</text>
+  </g>
+
+  <g stroke="#e0592a" stroke-width="3" stroke-linecap="round" opacity="0.8">
+    <path d="M52 116v-18h18M1388 116v-18h-18M52 786v18h18M1388 786v18h-18"/>
+  </g>
+</svg>
