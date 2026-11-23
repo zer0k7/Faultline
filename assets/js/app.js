@@ -1,4 +1,27 @@
 (function () {
+    var themeToggle = document.querySelector(".theme-toggle");
+
+    function paintThemeToggle() {
+        if (!themeToggle) {
+            return;
+        }
+        var dark = document.documentElement.dataset.theme === "dark";
+        themeToggle.textContent = dark ? "Light" : "Dark";
+        themeToggle.setAttribute("aria-pressed", dark ? "true" : "false");
+    }
+
+    if (themeToggle) {
+        paintThemeToggle();
+        themeToggle.addEventListener("click", function () {
+            var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+            document.documentElement.dataset.theme = next;
+            try {
+                window.localStorage.setItem("faultline.theme", next);
+            } catch (error) {}
+            paintThemeToggle();
+        });
+    }
+
     var header = document.querySelector(".site-header");
     var toggle = document.querySelector(".nav-toggle");
 

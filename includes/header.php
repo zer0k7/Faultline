@@ -15,6 +15,7 @@ $navUser = $_SESSION['user'] ?? '';
     <title><?= $pageTitle ?> | Faultline University</title>
     <meta name="description" content="Faultline University student portal.">
     <link rel="icon" href="<?= url('assets/logo.svg') ?>" type="image/svg+xml">
+    <script>try{document.documentElement.dataset.theme=localStorage.getItem('faultline.theme')||'light'}catch(e){document.documentElement.dataset.theme='light'}</script>
     <link rel="stylesheet" href="<?= url('assets/css/app.css') ?>">
     <script src="<?= url('assets/js/app.js') ?>" defer></script>
 </head>
@@ -45,6 +46,7 @@ $navUser = $_SESSION['user'] ?? '';
             <a class="nav-link<?= $activeNav === 'lab' ? ' is-active' : '' ?>" href="<?= url('lab/') ?>">Lab Guide</a>
         </nav>
         <div class="header-account">
+            <button class="theme-toggle" type="button" aria-label="Switch theme">Dark</button>
             <?php if ($navUser !== ''): ?>
                 <span class="signed-in">Signed in as <strong><?= $navUser ?></strong></span>
                 <a class="btn btn-ghost btn-sm" href="<?= url('logout.php') ?>">Log out</a>
