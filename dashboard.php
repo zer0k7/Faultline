@@ -89,7 +89,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="stack">
                         <?php while ($message = mysqli_fetch_assoc($messages)): ?>
                             <div>
-                                <div class="small muted"><?= $message['sender'] ?> · <?= $message['created_at'] ?></div>
+                                <div class="small muted"><?= $message['sender'] ?> | <?= $message['created_at'] ?></div>
                                 <strong><?= $message['subject'] ?></strong>
                                 <p class="small"><?= $message['body'] ?></p>
                             </div>

@@ -47,7 +47,7 @@ require_once __DIR__ . '/includes/header.php';
                         <option value="0">General feedback</option>
                         <?php if ($courses): ?>
                             <?php while ($course = mysqli_fetch_assoc($courses)): ?>
-                                <option value="<?= $course['id'] ?>"><?= $course['code'] ?> · <?= $course['title'] ?></option>
+                                <option value="<?= $course['id'] ?>"><?= $course['code'] ?> | <?= $course['title'] ?></option>
                             <?php endwhile; ?>
                         <?php endif; ?>
                     </select>

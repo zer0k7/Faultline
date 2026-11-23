@@ -77,7 +77,7 @@ require_once __DIR__ . '/includes/header.php';
             <tbody>
                 <?php while ($course = mysqli_fetch_assoc($courses)): ?>
                     <tr>
-                        <td data-label="Code"><strong><?= $course['code'] ?></strong></td>
+                        <td data-label="Code"><a href="<?= url('course.php?code=' . urlencode($course['code'])) ?>"><strong><?= $course['code'] ?></strong></a></td>
                         <td data-label="Course">
                             <strong><?= $course['title'] ?></strong>
                             <div class="small muted"><?= $course['description'] ?></div>

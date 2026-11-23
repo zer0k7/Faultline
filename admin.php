@@ -76,6 +76,7 @@ require_once __DIR__ . '/includes/header.php';
                     <a class="card card-link" href="<?= url('admin/theme-install.php') ?>"><div class="card-body"><h3>Theme installer</h3><p class="small muted">Install a theme package by URL.</p></div></a>
                     <a class="card card-link" href="<?= url('admin/logs.php') ?>"><div class="card-body"><h3>Log viewer</h3><p class="small muted">Read the application event log.</p></div></a>
                     <a class="card card-link" href="<?= url('admin/update.php') ?>"><div class="card-body"><h3>Update check</h3><p class="small muted">Compare this build with the update channel.</p></div></a>
+                    <a class="card card-link" href="<?= url('admin/bulk.php') ?>"><div class="card-body"><h3>Bulk import</h3><p class="small muted">Stage a batch of records for the nightly job.</p></div></a>
                     <a class="card card-link" href="<?= url('phpinfo.php') ?>"><div class="card-body"><h3>Runtime information</h3><p class="small muted">PHP configuration and loaded modules.</p></div></a>
                     <a class="card card-link" href="<?= url('backup/') ?>"><div class="card-body"><h3>Backups</h3><p class="small muted">Stored configuration and database snapshots.</p></div></a>
                 </div>

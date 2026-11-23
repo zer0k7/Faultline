@@ -137,7 +137,7 @@ sudo chmod -R 755 /var/www/html/Vulnerable-University-Portal-Security-Audit
 
 ### 6. Move or Serve the Project Files
 
-- You can copy or symbolically link this project directory to Apache’s default web root:
+- You can copy or symbolically link this project directory to Apache's default web root:
 
 ```sh
 sudo ln -s /path/to/Vulnerable-University-Portal-Security-Audit /var/www/html/university-portal

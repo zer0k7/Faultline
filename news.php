@@ -47,7 +47,7 @@ require_once __DIR__ . '/includes/header.php';
             <?php while ($item = mysqli_fetch_assoc($results)): ?>
                 <article class="news-item">
                     <h2><?= $item['title'] ?></h2>
-                    <div class="meta"><?= $item['author'] ?> · <?= $item['created_at'] ?></div>
+                    <div class="meta"><?= $item['author'] ?> | <?= $item['created_at'] ?></div>
                     <p><?= $item['content'] ?></p>
                 </article>
             <?php endwhile; ?>
@@ -61,5 +61,5 @@ require_once __DIR__ . '/includes/header.php';
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-<script src="http://internal/cdn/widget.js"></script>
+<script src="<?= url('cdn.php') ?>"></script>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

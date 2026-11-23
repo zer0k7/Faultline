@@ -17,7 +17,7 @@ RUN mkdir -p /var/www/html/uploads /var/www/html/themes /var/www/html/logs /flag
     && printf '%s\n' 'FLT{command_injection_8c4f}' > /flag/cmd.txt \
     && printf '%s\n' 'FLT{local_file_include_2f7b}' > /flag/lfi.txt \
     && printf '%s\n' 'FLT{unrestricted_upload_9d5a}' > /flag/upload.txt \
-    && printf '%s\n' 'FLT{php_object_inject_3a6d}' > /flag/integrity.txt \
+    && printf '%s\n' 'FLT{php_object_inject_3a6d}' > /flag/unserialize.txt \
     && printf '%s\n' 'FLT{xxe_entity_read_2b8f}' > /flag/xxe.txt \
     && printf '%s\n' 'FLT{predictable_reset_1d6c}' > /flag/reset.txt \
     && printf '%s\n' 'FLT{cookie_steal_xss_5a1d}' > /flag/xss.txt \

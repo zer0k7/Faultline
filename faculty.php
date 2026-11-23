@@ -46,7 +46,7 @@ if ($conn) {
                         <span class="avatar"><?= strtoupper(substr($person['name'], 0, 1)) ?></span>
                         <div>
                             <h2><?= $person['name'] ?></h2>
-                            <p class="small muted"><?= $person['department'] ?> · <?= $person['office'] ?></p>
+                            <p class="small muted"><?= $person['department'] ?> | <?= $person['office'] ?></p>
                             <p class="small"><?= $person['bio'] ?></p>
                             <div class="pill-row">
                                 <span class="badge"><?= $person['email'] ?></span>

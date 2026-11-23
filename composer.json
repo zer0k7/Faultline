@@ -1,0 +1,19 @@
+{
+    "name": "faultline/university-portal",
+    "description": "Faultline University Portal training application.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "7.4.4",
+        "monolog/monolog": "*",
+        "symfony/yaml": "*",
+        "vlucas/phpdotenv": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

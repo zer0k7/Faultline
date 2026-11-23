@@ -25,6 +25,11 @@ if ($conn && $id > 0) {
     }
 }
 
+$similar = false;
+if ($profile && $profile['bio'] !== '') {
+    $similar = mysqli_query($conn, "SELECT id, full_name, role FROM users WHERE bio LIKE '%{$profile['bio']}%' AND id <> $id LIMIT 6");
+}
+
 $pageTitle = 'Profile';
 $activeNav = 'profile';
 require_once __DIR__ . '/includes/header.php';
@@ -47,6 +52,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 <?php else: ?>
     <div class="split">
+        <div class="stack">
         <div class="card">
             <div class="card-head">
                 <h2>Profile details</h2>
@@ -85,6 +91,36 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
                 </form>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <h2>Similar biographies</h2>
+                <span class="badge">Registry match</span>
+            </div>
+            <div class="card-body">
+                <?php if ($similar && mysqli_num_rows($similar) > 0): ?>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr><th>ID</th><th>Name</th><th>Role</th></tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($match = mysqli_fetch_assoc($similar)): ?>
+                                    <tr>
+                                        <td data-label="ID"><?= $match['id'] ?></td>
+                                        <td data-label="Name"><a href="<?= url('profile.php?id=' . $match['id']) ?>"><?= $match['full_name'] ?></a></td>
+                                        <td data-label="Role"><span class="badge"><?= $match['role'] ?></span></td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <p class="small muted">No other record shares this biography.</p>
+                <?php endif; ?>
+            </div>
+        </div>
         </div>
 
         <aside class="sidebar">

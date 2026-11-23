@@ -856,6 +856,15 @@ table.table {
   line-height: 1.5;
 }
 
+.log-line {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  overflow-wrap: anywhere;
+}
+
 .list {
   margin: 0;
   padding-left: 1.2em;

@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/config.php';
+setcookie('xss_canary', flag_value('xss.txt'), 0, '/');
+
 $pageTitle = 'Home';
 $activeNav = 'home';
 require_once __DIR__ . '/includes/header.php';
@@ -97,7 +100,7 @@ if ($conn) {
                     <?php while ($item = mysqli_fetch_assoc($newsItems)): ?>
                         <article class="news-item">
                             <h3><?= $item['title'] ?></h3>
-                            <div class="meta"><?= $item['author'] ?> · <?= $item['created_at'] ?></div>
+                            <div class="meta"><?= $item['author'] ?> | <?= $item['created_at'] ?></div>
                             <p><?= $item['content'] ?></p>
                         </article>
                     <?php endwhile; ?>
