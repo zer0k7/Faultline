@@ -72,7 +72,7 @@ require_once __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <div class="split">
-    <div class="stack">
+    <div class="panel-stack">
         <div class="card">
             <div class="card-head">
                 <h2>Step 1: confirm identity</h2>

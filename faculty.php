@@ -21,20 +21,18 @@ if ($conn) {
     <p class="lede">Find a teacher by name or department. Office hours are listed on each profile.</p>
 </div>
 
-<div class="card section">
-    <div class="card-body">
-        <form class="search-form" method="get" action="">
-            <label class="sr-only" for="search">Search faculty</label>
-            <input id="search" name="search" type="search" placeholder="Search by name or department" value="<?= $search ?>">
-            <button class="btn btn-primary" type="submit">Search</button>
-            <?php if ($search !== ''): ?>
-                <a class="btn btn-secondary" href="<?= url('faculty.php') ?>">Clear</a>
-            <?php endif; ?>
-        </form>
+<div class="search-bar">
+    <form class="search-form" method="get" action="">
+        <label class="sr-only" for="search">Search faculty</label>
+        <input id="search" name="search" type="search" placeholder="Search by name or department" value="<?= $search ?>">
+        <button class="btn btn-primary" type="submit">Search</button>
         <?php if ($search !== ''): ?>
-            <p class="small muted mt-16">Searching for: <strong><?= $search ?></strong></p>
+            <a class="btn btn-secondary" href="<?= url('faculty.php') ?>">Clear</a>
         <?php endif; ?>
-    </div>
+    </form>
+    <?php if ($search !== ''): ?>
+        <p class="small muted mt-16">Searching for: <strong><?= $search ?></strong></p>
+    <?php endif; ?>
 </div>
 
 <?php if ($facultyList && mysqli_num_rows($facultyList) > 0): ?>

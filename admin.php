@@ -27,7 +27,7 @@ require_once __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <div class="split">
-    <div class="stack">
+    <div class="panel-stack">
         <div class="card">
             <div class="card-head">
                 <h2>User accounts</h2>
@@ -69,16 +69,16 @@ require_once __DIR__ . '/includes/header.php';
                 <h2>Maintenance tools</h2>
             </div>
             <div class="card-body">
-                <div class="grid grid-2">
-                    <a class="card card-link" href="<?= url('admin/diagnostics.php') ?>"><div class="card-body"><h3>Network diagnostics</h3><p class="small muted">Resolve a host and check reachability.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/import-notice.php') ?>"><div class="card-body"><h3>Notice import</h3><p class="small muted">Pull a notice from a remote URL.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/import-courses.php') ?>"><div class="card-body"><h3>Course import</h3><p class="small muted">Load a course list from XML.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/theme-install.php') ?>"><div class="card-body"><h3>Theme installer</h3><p class="small muted">Install a theme package by URL.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/logs.php') ?>"><div class="card-body"><h3>Log viewer</h3><p class="small muted">Read the application event log.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/update.php') ?>"><div class="card-body"><h3>Update check</h3><p class="small muted">Compare this build with the update channel.</p></div></a>
-                    <a class="card card-link" href="<?= url('admin/bulk.php') ?>"><div class="card-body"><h3>Bulk import</h3><p class="small muted">Stage a batch of records for the nightly job.</p></div></a>
-                    <a class="card card-link" href="<?= url('phpinfo.php') ?>"><div class="card-body"><h3>Runtime information</h3><p class="small muted">PHP configuration and loaded modules.</p></div></a>
-                    <a class="card card-link" href="<?= url('backup/') ?>"><div class="card-body"><h3>Backups</h3><p class="small muted">Stored configuration and database snapshots.</p></div></a>
+                <div class="tool-grid">
+                    <a class="tool-link" href="<?= url('admin/diagnostics.php') ?>"><strong>Network diagnostics</strong><span>Resolve a host and check reachability.</span></a>
+                    <a class="tool-link" href="<?= url('admin/import-notice.php') ?>"><strong>Notice import</strong><span>Pull a notice from a remote URL.</span></a>
+                    <a class="tool-link" href="<?= url('admin/import-courses.php') ?>"><strong>Course import</strong><span>Load a course list from XML.</span></a>
+                    <a class="tool-link" href="<?= url('admin/theme-install.php') ?>"><strong>Theme installer</strong><span>Install a theme package by URL.</span></a>
+                    <a class="tool-link" href="<?= url('admin/logs.php') ?>"><strong>Log viewer</strong><span>Read the application event log.</span></a>
+                    <a class="tool-link" href="<?= url('admin/update.php') ?>"><strong>Update check</strong><span>Compare this build with the update channel.</span></a>
+                    <a class="tool-link" href="<?= url('admin/bulk.php') ?>"><strong>Bulk import</strong><span>Stage a batch of records for the nightly job.</span></a>
+                    <a class="tool-link" href="<?= url('phpinfo.php') ?>"><strong>Runtime information</strong><span>PHP configuration and loaded modules.</span></a>
+                    <a class="tool-link" href="<?= url('backup/') ?>"><strong>Backups</strong><span>Stored configuration and database snapshots.</span></a>
                 </div>
             </div>
         </div>

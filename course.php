@@ -19,14 +19,12 @@ if ($conn && $code !== '') {
     <p class="lede">Open a course by code to see the description, credits and current seat count.</p>
 </div>
 
-<div class="card section">
-    <div class="card-body">
-        <form class="search-form" method="get" action="">
-            <label class="sr-only" for="code">Course code</label>
-            <input id="code" name="code" type="search" placeholder="For example CS101" value="<?= $code ?>">
-            <button class="btn btn-primary" type="submit">Look up</button>
-        </form>
-    </div>
+<div class="search-bar">
+    <form class="search-form" method="get" action="">
+        <label class="sr-only" for="code">Course code</label>
+        <input id="code" name="code" type="search" placeholder="For example CS101" value="<?= $code ?>">
+        <button class="btn btn-primary" type="submit">Look up</button>
+    </form>
 </div>
 
 <?php if ($course): ?>

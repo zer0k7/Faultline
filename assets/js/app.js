@@ -1,40 +1,40 @@
 (function () {
-    var themeToggle = document.querySelector(".theme-toggle");
-
-    function paintThemeToggle() {
-        if (!themeToggle) {
-            return;
-        }
-        var dark = document.documentElement.dataset.theme === "dark";
-        themeToggle.textContent = dark ? "Light" : "Dark";
-        themeToggle.setAttribute("aria-pressed", dark ? "true" : "false");
-    }
-
-    if (themeToggle) {
-        paintThemeToggle();
-        themeToggle.addEventListener("click", function () {
-            var next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-            document.documentElement.dataset.theme = next;
-            try {
-                window.localStorage.setItem("faultline.theme", next);
-            } catch (error) {}
-            paintThemeToggle();
-        });
-    }
-
     var header = document.querySelector(".site-header");
     var toggle = document.querySelector(".nav-toggle");
 
+    function closeMenu() {
+        if (!header || !toggle) {
+            return;
+        }
+        header.classList.remove("nav-open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+    }
+
     if (header && toggle) {
+        toggle.setAttribute("aria-label", "Open menu");
+
         toggle.addEventListener("click", function () {
             var open = header.classList.toggle("nav-open");
             toggle.setAttribute("aria-expanded", open ? "true" : "false");
+            toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
         });
 
         header.addEventListener("click", function (event) {
-            if (event.target.closest(".nav-link") && window.innerWidth <= 900) {
-                header.classList.remove("nav-open");
-                toggle.setAttribute("aria-expanded", "false");
+            if (event.target.closest("a") && window.innerWidth <= 980) {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+        });
+
+        window.addEventListener("resize", function () {
+            if (window.innerWidth > 980) {
+                closeMenu();
             }
         });
     }

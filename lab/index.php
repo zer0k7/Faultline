@@ -22,31 +22,31 @@ foreach ($categories as $category) {
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        <div class="grid grid-4">
-            <div>
-                <h3>1. Explore</h3>
-                <p class="small muted">Use the portal as a student. Read the pages, forms and API responses.</p>
-            </div>
-            <div>
-                <h3>2. Find</h3>
-                <p class="small muted">Look for trust boundaries. Ask what the server assumes about the client.</p>
-            </div>
-            <div>
-                <h3>3. Exploit</h3>
-                <p class="small muted">Test one idea at a time. Keep requests small and repeatable.</p>
-            </div>
-            <div>
-                <h3>4. Capture</h3>
-                <p class="small muted">Submit the flag here. Progress stays in localStorage on this browser.</p>
-            </div>
-        </div>
-        <div class="lab-toolbar">
-            <span class="small muted">Flags use the form FLT{...}. Hints are collapsed on purpose.</span>
-            <button class="btn btn-secondary btn-sm" type="button" id="reset-progress">Reset progress</button>
-        </div>
+<div class="lab-steps">
+    <div class="lab-step">
+        <span class="step-index">1</span>
+        <h3>Explore</h3>
+        <p>Use the portal as a student. Read the pages, forms and API responses.</p>
     </div>
+    <div class="lab-step">
+        <span class="step-index">2</span>
+        <h3>Find</h3>
+        <p>Look for trust boundaries. Ask what the server assumes about the client.</p>
+    </div>
+    <div class="lab-step">
+        <span class="step-index">3</span>
+        <h3>Exploit</h3>
+        <p>Test one idea at a time. Keep requests small and repeatable.</p>
+    </div>
+    <div class="lab-step">
+        <span class="step-index">4</span>
+        <h3>Capture</h3>
+        <p>Submit the flag here. Progress stays in localStorage on this browser.</p>
+    </div>
+</div>
+<div class="lab-toolbar">
+    <span class="small muted">Flags use the form FLT{...}. Hints are collapsed on purpose.</span>
+    <button class="btn btn-secondary btn-sm" type="button" id="reset-progress">Reset progress</button>
 </div>
 
 <?php foreach ($categories as $category): ?>

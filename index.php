@@ -56,34 +56,38 @@ if ($conn) {
         </div>
         <p>Public pages stay open. Personal records need a sign in.</p>
     </div>
-    <div class="grid grid-4">
-        <a class="card card-link" href="<?= url('courses.php') ?>">
-            <div class="card-body">
-                <span class="badge badge-accent">01</span>
-                <h3>Courses</h3>
-                <p class="small muted">Browse the catalog, check seats and enroll in a course.</p>
-            </div>
+    <div class="service-list">
+        <a class="service-item" href="<?= url('courses.php') ?>">
+            <span class="service-index">01</span>
+            <span class="service-body">
+                <strong>Courses</strong>
+                <span>Browse the catalog, check seats and enroll in a course.</span>
+            </span>
+            <span class="service-arrow" aria-hidden="true">&rarr;</span>
         </a>
-        <a class="card card-link" href="<?= url('faculty.php') ?>">
-            <div class="card-body">
-                <span class="badge badge-accent">02</span>
-                <h3>Faculty</h3>
-                <p class="small muted">Find a teacher, department and office location.</p>
-            </div>
+        <a class="service-item" href="<?= url('faculty.php') ?>">
+            <span class="service-index">02</span>
+            <span class="service-body">
+                <strong>Faculty</strong>
+                <span>Find a teacher, department and office location.</span>
+            </span>
+            <span class="service-arrow" aria-hidden="true">&rarr;</span>
         </a>
-        <a class="card card-link" href="<?= url('news.php') ?>">
-            <div class="card-body">
-                <span class="badge badge-accent">03</span>
-                <h3>News</h3>
-                <p class="small muted">Campus notices, library hours and assessment dates.</p>
-            </div>
+        <a class="service-item" href="<?= url('news.php') ?>">
+            <span class="service-index">03</span>
+            <span class="service-body">
+                <strong>News</strong>
+                <span>Campus notices, library hours and assessment dates.</span>
+            </span>
+            <span class="service-arrow" aria-hidden="true">&rarr;</span>
         </a>
-        <a class="card card-link" href="<?= url('feedback.php') ?>">
-            <div class="card-body">
-                <span class="badge badge-accent">04</span>
-                <h3>Feedback</h3>
-                <p class="small muted">Tell the course team what worked and what did not.</p>
-            </div>
+        <a class="service-item" href="<?= url('feedback.php') ?>">
+            <span class="service-index">04</span>
+            <span class="service-body">
+                <strong>Feedback</strong>
+                <span>Tell the course team what worked and what did not.</span>
+            </span>
+            <span class="service-arrow" aria-hidden="true">&rarr;</span>
         </a>
     </div>
 </section>

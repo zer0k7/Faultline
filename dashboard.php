@@ -25,10 +25,13 @@ if ($conn && $userId > 0) {
 $pageTitle = 'Dashboard';
 $activeNav = 'dashboard';
 require_once __DIR__ . '/includes/header.php';
+
+$displayName = isset($navName) && $navName !== '' ? $navName : $user;
+$displayName = htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8');
 ?>
 <div class="page-header">
     <span class="eyebrow">Student home</span>
-    <h1>Welcome, <?= $user ?></h1>
+    <h1>Welcome, <?= $displayName ?></h1>
     <p class="lede">Your courses, messages and account balance for the current term.</p>
 </div>
 
@@ -39,14 +42,14 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 <?php endif; ?>
 
-<div class="grid grid-3 section">
+<div class="stat-strip section">
     <div class="stat"><span>Active courses</span><strong><?= $courseTotal ?></strong></div>
     <div class="stat"><span>Account balance</span><strong><?= number_format($balance, 2) ?></strong></div>
     <div class="stat"><span>Messages</span><strong><?= $messages ? mysqli_num_rows($messages) : 0 ?></strong></div>
 </div>
 
 <div class="split">
-    <div class="stack">
+    <div class="panel-stack">
         <div class="card">
             <div class="card-head">
                 <h2>Current enrollment</h2>
@@ -109,7 +112,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="card">
             <div class="card-body">
                 <h3>Quick links</h3>
-                <div class="footer-links">
+                <div class="link-list">
                     <a href="<?= url('profile.php') ?>">My profile</a>
                     <a href="<?= url('courses.php') ?>">Course catalog</a>
                     <a href="<?= url('faculty.php') ?>">Faculty directory</a>
@@ -128,7 +131,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="card">
             <div class="card-body">
                 <h3>Session</h3>
-                <p class="small muted">Signed in as <?= $user ?>.</p>
+                <p class="small muted">Signed in as <?= $displayName ?>.</p>
                 <a class="btn btn-secondary btn-sm" href="<?= url('logout.php') ?>">Log out</a>
             </div>
         </div>

@@ -52,20 +52,18 @@ require_once __DIR__ . '/includes/header.php';
     <div class="alert alert-info"><?= $message ?></div>
 <?php endif; ?>
 
-<div class="card section">
-    <div class="card-body">
-        <form class="search-form" method="get" action="">
-            <label class="sr-only" for="search">Search courses</label>
-            <input id="search" name="search" type="search" placeholder="Search by code or title" value="<?= $search ?>">
-            <button class="btn btn-primary" type="submit">Search</button>
-            <?php if ($search !== ''): ?>
-                <a class="btn btn-secondary" href="<?= url('courses.php') ?>">Clear</a>
-            <?php endif; ?>
-        </form>
+<div class="search-bar">
+    <form class="search-form" method="get" action="">
+        <label class="sr-only" for="search">Search courses</label>
+        <input id="search" name="search" type="search" placeholder="Search by code or title" value="<?= $search ?>">
+        <button class="btn btn-primary" type="submit">Search</button>
         <?php if ($search !== ''): ?>
-            <p class="small muted mt-16">Showing results for: <strong><?= $search ?></strong></p>
+            <a class="btn btn-secondary" href="<?= url('courses.php') ?>">Clear</a>
         <?php endif; ?>
-    </div>
+    </form>
+    <?php if ($search !== ''): ?>
+        <p class="small muted mt-16">Showing results for: <strong><?= $search ?></strong></p>
+    <?php endif; ?>
 </div>
 
 <?php if ($courses && mysqli_num_rows($courses) > 0): ?>

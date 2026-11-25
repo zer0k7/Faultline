@@ -22,7 +22,7 @@ require_once __DIR__ . '/../includes/header.php';
         <div class="card">
             <div class="card-body">
                 <h3>Pages</h3>
-                <div class="footer-links">
+                <div class="link-list">
                     <a href="<?= url('pages/view.php?page=help.php') ?>">Getting help</a>
                     <a href="<?= url('pages/view.php?page=about.php') ?>">About the portal</a>
                 </div>
